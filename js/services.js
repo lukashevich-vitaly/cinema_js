@@ -1,7 +1,6 @@
 const API_KEY = '0c1488601dcb93fdcde292e3f119d8bf';
 const BASE_URL = 'https://api.themoviedb.org/3/';
-
-//   trending/all/day?api_key=<<api_key>>
+const LANGUAGE = '&language=ru-RU'
 
 const getData = url => fetch(url)
         .then(response => {
@@ -14,7 +13,7 @@ const getData = url => fetch(url)
 
 
 
-export const getTriends = async () => {
-    const data = await getData('https://jsonplaceholder.typicode.com/todos/1');
-    console.log('data:', data);
+export const getTriends = async (type = 'all', period = 'day', page = 1) => {
+    const url = `${BASE_URL}trending/${type}/${period}?api_key=${API_KEY}${LANGUAGE}&page=${page}`
+    return await getData(url);
 }
