@@ -1,10 +1,9 @@
 const listCards = document.querySelector('.other-films__list');
 
-const renderCards = async (data) => {
+const renderCards = (data) => {
     listCards.textContent = '';
 
     const cards = data.map((item) => {
-        console.log(item);
         const card = document.createElement('li');
         card.className = 'other-films__item';
 
@@ -24,8 +23,6 @@ const renderCards = async (data) => {
     });
 
     listCards.append(...cards)
-
-    console.log(cards);
 };
 
 export default renderCards;
