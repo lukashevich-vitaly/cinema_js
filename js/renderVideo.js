@@ -1,4 +1,5 @@
 import { getTriends } from './services.js';
+import renderCards from './renderCards.js';
 
 const filmWeek = document.querySelector('.film-week')
 
@@ -18,8 +19,12 @@ const fistRender = data => {
 
 const renderVideo = async () => {
     const data = await getTriends();
+    const [ fistCard, ...otherCard ] = data.results;
     
-    fistRender(data.results[0]);
+    otherCard.length = 16;
+    
+    fistRender(fistCard);
+    renderCards(otherCard);
 };
 
 export default renderVideo;
