@@ -1,9 +1,9 @@
-import { getTriends } from './services.js';
+import { getTriends, getVideo } from './services.js';
 import renderCards from './renderCards.js';
 
 const filmWeek = document.querySelector('.film-week')
 
-const fistRender = data => {
+const fistRender = (data, keyVideo) => {
 
     filmWeek.innerHTML = `
         <div class="container film-week__container" data-rating="${data.vote_average}">
@@ -12,18 +12,26 @@ const fistRender = data => {
                 <p class="film-week__title_origin">${data.original_name || data.original_title}</p>
             </div>
             <h2 class="film-week__title">${data.name || data.title}</h2>
-            <a class="film-week__watch-trailer tube" href="https://youtu.be/V0hagz_8L3M" aria-label="смотреть трейлер"></a>
+            ${keyVideo ? 
+                `<a class="film-week__watch-trailer tube"
+                href="https://youtu.be/${keyVideo}"
+                aria-label="смотреть трейлер"></a>` : 
+                ''}
         </div>
     `;
 };
 
 const renderVideo = async () => {
     const data = await getTriends();
+    
     const [ fistCard, ...otherCard ] = data.results;
-    
     otherCard.length = 16;
+
+    const video = await getVideo(fistCard.id, fistCard.media_type)
+
+    console.log(fistCard);
     
-    fistRender(fistCard);
+    fistRender(fistCard, video);
     renderCards(otherCard);
 };
 

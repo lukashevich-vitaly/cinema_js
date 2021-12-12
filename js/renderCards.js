@@ -9,7 +9,7 @@ const renderCards = (data) => {
 
         const link = document.createElement('a');
         link.className = 'other-films__link';
-        item.vote_average === 0 ? link.dataset.rating = '-' : link.dataset.rating = item.vote_average;
+        if(item.vote_average) link.dataset.rating = item.vote_average;
 
         const img = document.createElement('img');
         img.className = 'other-films__img';
